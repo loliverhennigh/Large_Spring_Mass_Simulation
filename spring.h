@@ -1,4 +1,5 @@
 
+#include "particle.h"
 
 #ifndef _spring_H_
 #define _spring_H_

@@ -11,7 +11,7 @@ typedef struct {
 
 } force;
 
-force_init(force * f, float x, float y, float z);
+void force_init(force * f, float x, float y, float z);
 
 #endif	
 

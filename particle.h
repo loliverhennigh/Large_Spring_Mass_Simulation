@@ -1,7 +1,8 @@
 
+#include "force.h"
 
-#ifndef _point_H_
-#define _point_H_
+#ifndef _particle_H_
+#define _particle_H_
 
 
 typedef struct {
@@ -20,6 +21,12 @@ typedef struct {
 } particle;
 
 void particle_init(particle * p, float x, float y, float z, float mass, float charge);
+float particle_get_x(particle * p);
+float particle_get_y(particle * p);
+float particle_get_z(particle * p);
+void particle_add_force(particle * p, force * f);
+float particle_distance(particle * p_a, particle * p_b);
+
 
 #endif	
 
