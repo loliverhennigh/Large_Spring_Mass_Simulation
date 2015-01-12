@@ -16,11 +16,10 @@ typedef struct {
 	float z_force;
 	float mass;
 	float charge;
-	spring ** connections;
 
 } particle;
 
-void particle_init(particle * p, float x, float y, float z, float mass, float charge, spring ** connections);
+void particle_init(particle * p, float x, float y, float z, float mass, float charge);
 
 #endif	
 

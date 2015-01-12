@@ -1,9 +1,9 @@
+all: test
 
+spring.o: spring.c
+	gcc $(CFLAGS) -c backer.o 
 
-backer: backer.o 
-	gcc $(CFLAGS) -o backer.o 
-
-backer.o: backer.c
+particle.o: particle.c
 	gcc $(CFLAGS) -c backer.c
 
 clean:
