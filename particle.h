@@ -21,12 +21,18 @@ typedef struct {
 } particle;
 
 void particle_init(particle * p, float x, float y, float z, float mass, float charge);
-float particle_get_x(particle * p);
-float particle_get_y(particle * p);
-float particle_get_z(particle * p);
+float particle_get_x_a(particle * p);
+float particle_get_y_a(particle * p);
+float particle_get_z_a(particle * p);
+float particle_get_x_b(particle * p);
+float particle_get_y_b(particle * p);
+float particle_get_z_b(particle * p);
 void particle_add_force(particle * p, force * f);
-float particle_distance(particle * p_a, particle * p_b);
-
+float particle_distance_a(particle * p_a, particle * p_b);
+float particle_distance_b(particle * p_a, particle * p_b);
+float particle_distance_squared_a(particle * p_a, particle * p_b);
+float particle_distance_squared_b(particle * p_a, particle * p_b);
+void particle_calc_charge_force(particle * p_a, particle * p_b);
 
 #endif	
 

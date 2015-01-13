@@ -8,12 +8,15 @@
 typedef struct {
 	int type;
 	float k;
+	float x_0;
 	particle * a;
 	particle * b;
 
 } spring;
 
-void spring_init(spring * s, int type, float k, particle * a, particle *b);
+void spring_init(spring * s, int type, float k, float x_0, particle * a, particle *b);
+int spring_get_type(spring * s);
+void spring_calc_force(spring * s);
 
 #endif	
 

@@ -20,9 +20,12 @@ void particle_init(particle * p, float x, float y, float z, float mass, float ch
 	p->charge = charge;
 }
 
-float particle_get_x(particle * p) { return p->x_a; }
-float particle_get_y(particle * p) { return p->y_a; }
-float particle_get_z(particle * p) { return p->z_a; }
+float particle_get_x_a(particle * p) { return p->x_a; }
+float particle_get_y_a(particle * p) { return p->y_a; }
+float particle_get_z_a(particle * p) { return p->z_a; }
+float particle_get_x_b(particle * p) { return p->x_b; }
+float particle_get_y_b(particle * p) { return p->y_b; }
+float particle_get_z_b(particle * p) { return p->z_b; }
 
 void particle_add_force(particle * p, force * f)
 {
@@ -31,7 +34,7 @@ void particle_add_force(particle * p, force * f)
 	p->z_force = p->z_force + f->z;
 }
 
-float particle_distance(particle * p_a, particle * p_b)
+float particle_distance_a(particle * p_a, particle * p_b)
 {
 	float distance;
 	distance = pow((p_a->x_a - p_b->x_a), 2);
@@ -40,4 +43,49 @@ float particle_distance(particle * p_a, particle * p_b)
 	distance = sqrt(distance);
 	return distance;
 }
+
+float particle_distance_b(particle * p_a, particle * p_b)
+{
+	float distance;
+	distance = pow((p_a->x_b - p_b->x_b), 2);
+	distance = distance + pow((p_a->y_b - p_b->y_b), 2);
+	distance = distance + pow((p_a->z_b - p_b->z_b), 2);
+	distance = sqrt(distance);
+	return distance;
+}
+
+float particle_distance_squared_a(particle * p_a, particle * p_b)
+{
+	float distance;
+	distance = pow((p_a->x_a - p_b->x_a), 2);
+	distance = distance + pow((p_a->y_a - p_b->y_a), 2);
+	distance = distance + pow((p_a->z_a - p_b->z_a), 2);
+	return distance;
+}
+
+float particle_distance_squared_b(particle * p_a, particle * p_b)
+{
+	float distance;
+	distance = pow((p_a->x_b - p_b->x_b), 2);
+	distance = distance + pow((p_a->y_b - p_b->y_b), 2);
+	distance = distance + pow((p_a->z_b - p_b->z_b), 2);
+	return distance;
+}
+
+void particle_calc_charge_force(partcile * p_a, particle * p_b)
+{
+	float distance = 0.0;
+	distance = particle_distance_a(p_a, p_b);
+	distance = (.1 * p_a->charge * p_b->charge) / pow(distance,3); // need to change charge constant
+	float xf = (p_a->x_a - p_b->x_a) * distance;
+	float yf = (p_a->y_a - p_b->y_a) * distance;
+	float zf = (p_a->z_a - p_b->z_a) * distance;
+	force * f = {xf,yf,zy};
+	particle_add_force(p_a, f);
+	force_invert(f);
+	particle_add_force(p_b, f);	
+}
+
+
+
 
