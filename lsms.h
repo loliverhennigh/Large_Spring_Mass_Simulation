@@ -19,6 +19,7 @@ void lsms_set_spring(lsms * l, int pos, int type, float k, float x_0, int pos_a,
 void lsms_force_from_springs(lsms * l);
 void lsms_force_from_charges(lsms * l);
 void lsms_update_step(lsms * l, float dt);
+void lsms_first_step(lsms * l, float dt);
 void lsms_force_zero(lsms * l);
 
 #endif	

@@ -106,7 +106,17 @@ void particle_calc_charge_force(particle * p_a, particle * p_b, force * force_st
 
 void particle_first_step(particle * p, float dt)
 {
-	p->x_a = p->x_b + (.5 * p->x_force * pow(dt, 2)) / p->mass
+	p->x_a = p->x_b + (.5 * p->x_force * pow(dt, 2)) / p->mass;
+	p->y_a = p->y_b + (.5 * p->y_force * pow(dt, 2)) / p->mass;
+	p->z_a = p->z_b + (.5 * p->z_force * pow(dt, 2)) / p->mass;
+}
+
+void particle_update_step(particle * p, float dt)
+{
+	p->x_b = 2.0 * p->x_a - p->x_b + (p->x_force * pow(dt, 2)) / p->mass;
+	p->y_b = 2.0 * p->y_a - p->y_b + (p->y_force * pow(dt, 2)) / p->mass;
+	p->z_b = 2.0 * p->z_a - p->z_b + (p->z_force * pow(dt, 2)) / p->mass;
+	particle_swap_a_b(p);
 }
 
 void particle_force_zero(particle * p)
@@ -115,3 +125,4 @@ void particle_force_zero(particle * p)
 	p->y_force = 0.0;
 	p->z_force = 0.0;
 }
+

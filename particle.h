@@ -41,8 +41,9 @@ float particle_distance_b(particle * p_a, particle * p_b);
 float particle_distance_squared_a(particle * p_a, particle * p_b);
 float particle_distance_squared_b(particle * p_a, particle * p_b);
 void particle_calc_charge_force(particle * p_a, particle * p_b, force * force_store_space);
-void particle_force_zero(particel * p);
-
+void particle_force_zero(particle * p);
+void particle_first_step(particle * p, float dt);
+void particle_update_step(particle * p, float dt);
 
 #endif	
 
