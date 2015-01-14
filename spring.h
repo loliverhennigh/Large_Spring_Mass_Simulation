@@ -16,7 +16,7 @@ typedef struct {
 
 void spring_init(spring * s, int type, float k, float x_0, particle * a, particle *b);
 int spring_get_type(spring * s);
-void spring_calc_force(spring * s);
+void spring_calc_force(spring * s, force * force_store_space);
 
 #endif	
 

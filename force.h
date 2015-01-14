@@ -14,6 +14,7 @@ typedef struct {
 force * force_create();
 void force_init(force * f, float x, float y, float z);
 void force_invert(force * f);
+void force_destroy(force * f);
 
 #endif	
 

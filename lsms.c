@@ -26,32 +26,36 @@ void lsms_set_particle(lsms * l, int pos, float x, float y, float z, float mass,
 	particle_init(l->p[pos], x, y, z, mass, charge);
 }
 
-void lsms_set_spring(lsms * l, int pos, int type, float k, int pos_a, int pos_b)
+void lsms_set_spring(lsms * l, int pos, int type, float k, float x_0, int pos_a, int pos_b)
 {
-	spring_init(l->s[pos], type, k, l->p[pos_a], l->p[pos_b]);
+	spring_init(l->s[pos], type, k, x_0, l->p[pos_a], l->p[pos_b]);
 }
 
 void lsms_force_from_springs(lsms * l)
 {
 	int i = 0;
+	force * f = force_create();
 	for(i = 0; i < l->num_springs; i++)
 	{
-		spring_calc_force(l->s[i]);
+		spring_calc_force(l->s[i], f);
 	}
+	force_destroy(f);
 }
 
 void lsms_force_from_charges(lsms * l)
 {
 	int i = 0;
 	int j = 0;
+	force * f = force_create();
 	for(i = 0; i < l->num_particles; i++)
 	{
 		for(j = i+1; j < l->num_particles; j++)
 		{
-			particle_calc_charge_force(l->p[i], l->p[j]);
+			particle_calc_charge_force(l->p[i], l->p[j], f);
 		}
 
 	}
+	force_destroy(f);
 }
 
 

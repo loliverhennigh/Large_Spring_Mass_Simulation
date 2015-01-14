@@ -7,18 +7,23 @@ force * force_create()
 	return f;
 }
 
-force_init(force * f, float x, float y, float z)
+void force_init(force * f, float x, float y, float z)
 {
 	f->x = x;
 	f->y = y;
 	f->z = z;
 }
 
-force_invert(force * f)
+void force_invert(force * f)
 {
 	f->x = -x;
 	f->y = -y;
 	f->z = -z;
 }
 
+void force_destroy(force * f)
+{
+	free(f);
+	f = NULL;
+}
 
