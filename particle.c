@@ -26,6 +26,27 @@ float particle_get_z_a(particle * p) { return p->z_a; }
 float particle_get_x_b(particle * p) { return p->x_b; }
 float particle_get_y_b(particle * p) { return p->y_b; }
 float particle_get_z_b(particle * p) { return p->z_b; }
+float particle_get_mass(particle * p) { return p->mass; }
+void particle_set_x_a(particle * p, float x) { p->x_a = x; } 
+void particle_set_x_b(particle * p, float x) { p->x_b = x; } 
+void particle_set_y_a(particle * p, float y) { p->y_a = y; } 
+void particle_set_y_b(particle * p, float y) { p->y_b = y; } 
+void particle_set_z_a(particle * p, float z) { p->z_a = z; } 
+void particle_set_z_b(particle * p, float z) { p->z_b = z; } 
+
+void particle_swap_a_b(particle *p)
+{
+	float bla;
+	bla = p->x_a;
+	p->x_a = p->x_b;
+	p->x_b = bla;
+	bla = p->y_a; 
+	p->y_a = p->y_b;
+	p->y_b = bla;
+	bla = p->z_a;
+	p->z_a = p->z_b;
+	p->z_b = bla;	
+}
 
 void particle_add_force(particle * p, force * f)
 {
@@ -83,6 +104,14 @@ void particle_calc_charge_force(particle * p_a, particle * p_b, force * force_st
 	particle_add_force(p_b, force_store_space);	
 }
 
+void particle_first_step(particle * p, float dt)
+{
+	p->x_a = p->x_b + (.5 * p->x_force * pow(dt, 2)) / p->mass
+}
 
-
-
+void particle_force_zero(particle * p)
+{
+	p->x_force = 0.0;
+	p->y_force = 0.0;
+	p->z_force = 0.0;
+}

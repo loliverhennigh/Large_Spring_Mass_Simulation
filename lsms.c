@@ -58,4 +58,43 @@ void lsms_force_from_charges(lsms * l)
 	force_destroy(f);
 }
 
+void lsms_first_step(lsms * l, float dt)
+{
+	int i = 0;
+	lsms_force_zero(l);
+	lsms_force_from_springs(l);
+	lsms_force_from_charges(l);
+	for (i = 0; i < l->num_particles; i++)
+	{
+		particle_first_step(l->p[i], dt);
+	}
+}
+
+void lsms_update_step(lsms * l, float dt)
+{
+	lsms_force_zero(l);
+	lsms_force_from_springs(l);
+	lsms_force_from_charges(l);
+}
+
+void lsms_force_zero(lsms * l)
+{
+	int i = 0;
+	for(i = 0; i < l->num_particles; i++)
+	{
+		particle_force_zero(l->p[i]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
