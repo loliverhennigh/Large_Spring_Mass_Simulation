@@ -8,7 +8,7 @@ force * force_create()
 	return f;
 }
 
-void force_init(force * f, float x, float y, float z)
+void force_init(force * f, double x, double y, double z)
 {
 	f->x = x;
 	f->y = y;

@@ -1,7 +1,12 @@
-all: test
+all: test graphics
+
+
+# bad part here
+graphics: lsms.c lsms_graphics.cpp spring.c particle.c force.c
+	g++ $(CLAGS) lsms_graphics.cpp spring.c particle.c lsms.c force.c -o graphics -lGL -lm -lglut
 
 test: test.o spring.o particle.o lsms.o force.o
-	gcc test.o spring.o particle.o lsms.o force.o -o test -lm
+	gcc $(CFLAGS) test.o spring.o particle.o lsms.o force.o -o test -lm
 
 test.o: test.c
 	gcc $(CFLAGS) -c test.c 
@@ -20,4 +25,4 @@ force.o: force.c
 
 
 clean:
-	rm -f *.o test
+	rm -f *.o test graphics
