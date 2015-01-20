@@ -44,6 +44,8 @@ void particle_calc_charge_force(particle * p_a, particle * p_b, force * force_st
 void particle_force_zero(particle * p);
 void particle_first_step(particle * p, double dt);
 void particle_update_step(particle * p, double dt);
+void particle_add_charge(particle * p, double charge);
+
 
 #endif	
 

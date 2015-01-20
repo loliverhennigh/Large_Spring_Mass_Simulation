@@ -63,7 +63,7 @@ bool in_full_screen = 0;
 // time steps -----------------------------------------------
 double dt = .001;
 double time_elapsed = 0.0;
-int direction = 1;
+double direction = 1.0;
 //  ---------------------------------------------------------
 
 string file_name;
@@ -109,14 +109,28 @@ void display(){
 
  // draw the conections (red is real) (imag is blue -> green)
   for (int i = 0; i < l->num_springs; i++)
-  { 
+  {
+		if (spring_get_type(l->s[i]) == 1)
+		{ 
   		glBegin(GL_LINES);
   		glColor3f(1.0,0.0,0.0);
   		glVertex3d(spring_pos_x_a(l->s[i]),spring_pos_y_a(l->s[i]),spring_pos_z_a(l->s[i]));
   		glColor3f(1.0,0.0,0.0);
   		glVertex3d(spring_pos_x_b(l->s[i]),spring_pos_y_b(l->s[i]),spring_pos_z_b(l->s[i]));
   		glEnd();
+		}
+  } 
+ // draw the conections (red is real) (imag is blue -> green)
+  for (int i = 0; i < l->num_springs_hold; i++)
+  {
+  		glBegin(GL_LINES);
+  		glColor3f(0.0,1.0,0.0);
+  		glVertex3d(spring_pos_x_a(l->s_hold[i]),spring_pos_y_a(l->s_hold[i]),spring_pos_z_a(l->s_hold[i]));
+  		glColor3f(0.0,1.0,0.0);
+  		glVertex3d(spring_pos_x_b(l->s_hold[i]),spring_pos_y_b(l->s_hold[i]),spring_pos_z_b(l->s_hold[i]));
+  		glEnd();
   }
+
 /*
  // draw the nodes (and heats for them)
    for (int i = 0; i < test.size; i++)
@@ -184,7 +198,7 @@ void timeMaker(unsigned char key, int x, int y)
 	// change time stuff
 	if (key ==  't')
 	{
-		lsms_update_step(l,dt);
+		lsms_add_charge(l,.001 * direction);
 	}
 	if (key == 'f')
 	{
@@ -196,7 +210,7 @@ void timeMaker(unsigned char key, int x, int y)
 	}
 	if (key == '-')
 	{
-		direction = direction*(-1);
+		direction = direction*(-1.0);
 	}
 	
 	// move around
@@ -321,9 +335,14 @@ int main(int argc, char* argv[]){
 	lsms_set_spring(l, 9, 1, 1.0, 1.0, 1.0, 3, 5);
 	lsms_first_step(l, dt); 
 */
-	l = lsms_init_rope(0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, .2, 20);
-	lsms_set_spring(l, 1, 1, 100.0, 0.0, 0.0, 5, 19);
-	lsms_set_particle(l, 5, -1.5, -1.5, 1.0, 1.0, 1.0);
+	lsms * l_b = lsms_init_rope(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.1, 10.0, 10.0, 10);
+	lsms * l_a = lsms_init_rope(0.1, -1.0, 0.0, 0.1, 1.0, 0.0, 0.1, 10.0, 10.0, 10);
+	lsms * l_c = lsms_init_rope(0.03333, -1.0, 0.0, 0.033, 1.0, 0.0, 0.1, 10.0, 10.0, 10);
+	lsms * l_d = lsms_init_rope(0.0666, -1.0, 0.0, 0.06666, 1.0, 0.0, 0.1, 10.0, 10.0, 10);
+	l = lsms_add_tensor(l_b, l_a, 100.0, .0225);
+	l = lsms_add_tensor(l, l_c, 100.0, .0225);
+	l = lsms_add_tensor(l, l_d, 100.0, .0225);
+
 /*	
 	l = lsms_create(2,1);
 	lsms_set_particle(l, 0, 0.0, 0.0, 0.0, 2.0, 0.0);

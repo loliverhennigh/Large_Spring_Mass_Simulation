@@ -126,3 +126,8 @@ void particle_force_zero(particle * p)
 	p->z_force = 0.0;
 }
 
+void particle_add_charge(particle * p, double charge)
+{
+	p->charge = p->charge + charge;
+}
+
